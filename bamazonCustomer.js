@@ -17,7 +17,8 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) throw err;
   //console.log("connected as id " + connection.threadId);
-  bamazon();
+  //bamazon();
+  showProducts()
   //connection.end();
 });
 
@@ -37,6 +38,8 @@ function showProducts() {
                       ]);                
        }
       console.log(table.toString());
+      promptUser();
+
   });
 }
 
@@ -81,32 +84,26 @@ function updateQuantity(prodId, qty){
     ]).then(function(inp){
 
       if(inp.confirmation === "yes"){
-        bamazon()
-
+        showProducts()
+        // promptUser()
       }
 
       else{
         connection.end()
       }
 
-
-
-
-
     })
-
-   
-    
-    //showProducts();
     
 
   })
 }
 
-function bamazon(){
-  var prodId = ""
 
-  showProducts()
+
+
+
+
+function promptUser(){
   inquirer.prompt([
     {
       name: 'query',
@@ -126,18 +123,7 @@ function bamazon(){
       updateQuantity(userInput.query, userInput.amount);
       
     })
-
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
